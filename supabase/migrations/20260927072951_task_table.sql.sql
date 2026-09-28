@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS tasks(
     title text not null,
     description text,
     status text default 'pending',
-    user_id uuid references users(id) on delete cascade,
+    creater_id uuid references users(id) on delete cascade,
     assigned_to uuid references users(id) on delete set null,
     created_at timestamp not null default now()
 )
