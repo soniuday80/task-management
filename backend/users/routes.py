@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import  jsonify
 from backend.extentions import get_db
 from auth.jwt_utils import get_current_user_id
 
@@ -12,13 +12,17 @@ def register_user_profile(app):
         db = get_db()
         cur = db.cursor()
         cur.execute("SELECT id , name , email FROM users ORDER BY name")
-        row = cur.fetchall
-
-        for r in row:
-            id = str(r['id'])
-            name = r['name']
-            email = r['email']
+        rows = cur.fetchall()
 
 
-        return jsonify({"return name , id , email"})
+
+        return jsonify([
+                    {
+                        "id": str(r["id"]),
+                        "name": r["name"],
+                        "email": r["email"],
+                        
+                    }
+                    for r in rows
+                ]) , 200
     

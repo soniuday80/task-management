@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from auth.jwt_utils import get_current_user_id
 from backend.extentions import get_db
+from emails.email import send_task_created_email, send_task_completed_email
 
 
 def register_task_routes(app):
@@ -47,7 +48,7 @@ def register_task_routes(app):
 
         if str(user_id) != str(assigned_to):
             try:
-                # send_task_created_email(to=assignee_row['email'], task=task)
+                send_task_created_email(to=assignee_row['email'], task=task)
                 pass
             except Exception as e:
                 print("email failed:", e)
@@ -129,7 +130,7 @@ def register_task_routes(app):
             cur.execute("SELECT email FROM users WHERE id = %s", (task["user_id"],))
             creator = cur.fetchone()
             if creator and str(task["user_id"]) != str(user_id):
-                # send_task_completed_email(to=creator['email'], task=task)
+                send_task_completed_email(to=creator['email'], task=task)
                 pass
         except Exception as e:
             print("email failed:", e)

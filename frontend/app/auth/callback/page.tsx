@@ -9,15 +9,21 @@ export default function AuthCallback() {
     const router = useRouter();
     const  searchParams  = useSearchParams();
 
+
+
     useEffect(() => {
         if (searchParams) {
             const accessToken = searchParams.get('access_token');
             if (accessToken) {
                 localStorage.setItem('access_token', accessToken);
-                router.push('/dashboard');
+                const user_id = getUserIdFromToken(accessToken);
+                if (user_id) {
+                     localStorage.setItem('user_id', user_id);
+                     router.push('/dashboard');
+                }
             }
             else {
-                router.push('/login');
+                router.push('/');
             }
         }
     }, [searchParams, router]); // we need to add searchParams and router as dependencies to the useEffect hook, so that it runs again when they change

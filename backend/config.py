@@ -9,3 +9,5 @@ class Config:
     JWT_SECRET = os.environ.get("JWT_SECRET")
     FRONTEND_URL = os.environ.get("FRONTEND_URL")
     DATABASE_URL = os.environ.get("DATABASE_URL")
+    SMTP_PASSSWORD = os.environ.get("SMTP_PASSWORD")
+    SMTP_USER_EMAIL = os.environ.get("SMTP_EMAIL")
