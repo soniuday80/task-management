@@ -12,3 +12,6 @@ class Config:
     SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
     SMTP_USER = os.environ.get("SMTP_USER")
     SECRET_KEY = os.environ.get("SECRET_KEY")
+    SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = "Lax"

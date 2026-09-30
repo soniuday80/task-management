@@ -7,10 +7,12 @@ from auth.routes import register_auth_routes
 from users.routes import register_user_profile
 from tasks.routes import register_task_routes
 import os
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 CORS(app, origins=[app.config['FRONTEND_URL']])
 
 register_oauth(app)
