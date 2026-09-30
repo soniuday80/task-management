@@ -1,18 +1,28 @@
-import smtplib
-from email.message import EmailMessage
+import os
+import resend
 from flask import current_app
 
 
 def send(to , subject , body):
-    message = EmailMessage()
-    message["Subject"] = subject
-    message["From"] = current_app.config["SMTP_USER"]
-    message["To"] = to
-    message.set_content(body)
 
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(current_app.config["SMTP_USER"], current_app.config["SMTP_PASSWORD"])
-        server.send_message(message)
+    resend.api_key = os.getenv("RESEND_API_KEY")
+
+    try:
+        params = {
+            "from": "onboarding@resend.dev",  # Resend's default test sender domain
+            "to": [to],
+            "subject": subject,
+            "text": body,
+        }
+        
+        response = resend.Emails.send(params)
+        print(f"Email sent successfully via Resend: {response}")
+        return True
+    except Exception as e:
+        print(f"Resend error: {e}")
+        return False
+
+    
 
 def send_task_created_email(to, task):
     send(to, f"New task assigned: {task['title']}",
