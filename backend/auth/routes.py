@@ -2,11 +2,13 @@ from flask import redirect
 from auth.jwt_utils import create_jwt
 from extentions import get_db
 from auth.oauth import oauth
+import os
 
 def register_auth_routes(app):
     @app.route('/auth/google/login')
     def google_login():
-        redirect_uri = 'http://localhost:5000/auth/google/callback'
+        backend_url = os.getenv("BACKEND_URL", "http://localhost:5000") ## change the url from hardcoded localhost 5000 to direct from enviorment
+        redirect_uri = f"{backend_url}/auth/google/callback"
         return oauth.google.authorize_redirect(redirect_uri)
 
     @app.route('/auth/google/callback')
