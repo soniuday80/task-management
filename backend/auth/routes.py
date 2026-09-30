@@ -9,7 +9,7 @@ def register_auth_routes(app):
     def google_login():
         backend_url = os.getenv("BACKEND_URL", "http://localhost:5000") ## change the url from hardcoded localhost 5000 to direct from enviorment
         redirect_uri = f"{backend_url}/auth/google/callback"
-        return oauth.google.authorize_redirect(redirect_uri)
+        return oauth.google.authorize_redirect(redirect_uri , prompt = "login")
 
     @app.route('/auth/google/callback')
     def google_callback():
