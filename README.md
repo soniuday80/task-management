@@ -93,7 +93,6 @@ All endpoints except the two auth routes require `Authorization: Bearer <token>`
 |---|---|---|
 | GET | `/auth/google/login` | Redirects to Google's OAuth consent screen |
 | GET | `/auth/google/callback` | Handles Google's redirect, issues a JWT, redirects to frontend |
-| GET | `/me` | Returns the current user's id (used to verify a token is valid) |
 | GET | `/users` | Returns all registered users (id, name, email) — used to populate the assignee dropdown |
 | GET | `/tasks` | Returns all tasks, joined with creator and assignee names |
 | POST | `/tasks` | Creates a task. Body: `{ title, description, assigned_to }`. Creator is taken from the token, not the request body |
