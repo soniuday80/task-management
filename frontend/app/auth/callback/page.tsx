@@ -1,4 +1,5 @@
 // this is where we handle redirect that comes from the auth provider after a successful login
+export const dynamic = 'force-dynamic'; // rendering it live 
 'use client'; // forgot this one too lol
 import { useEffect } from 'react';
 import { useRouter , useSearchParams } from 'next/navigation';
