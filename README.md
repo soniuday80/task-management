@@ -24,9 +24,10 @@ A multi-user task management application with Google OAuth login, task creation 
 | Frontend | Next.js (App Router) + TypeScript + Tailwind CSS |
 | Backend | Flask (Python) |
 | Database | Supabase (Postgres) — used as a direct Postgres database only |
-| Auth | Google OAuth 2.0, implemented directly in Flask using Authlib (not Supabase Auth) |
+| Auth | Google OAuth 2.0, implemented directly in Flask using Authlib  |
 | Sessions | Custom-issued JWTs (HS256), verified on every protected request |
 | Email | Gmail SMTP (`smtplib`), sent from an app-password-authenticated account |
+Resend API | sent email via API works in production but Resend's free tier requires test emails to be sent to the account owner's verified address
 | Frontend hosting | Vercel |
 | Backend hosting | Railway |
 
@@ -54,7 +55,7 @@ A multi-user task management application with Google OAuth login, task creation 
 │   Backend    │ ◀────────────────────────  │  (Postgres)  │
 │              │                             └──────────────┘
 │              │
-│              │ ─── SMTP (smtplib) ───────▶  Gmail → recipient inbox
+│              │ ─── SMTP (smtplib) / RESEND API ───────▶  Gmail → recipient inbox
 └──────────────┘
 ```
 

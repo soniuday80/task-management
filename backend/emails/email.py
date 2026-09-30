@@ -1,8 +1,21 @@
+#import stmplib
 import os
 import resend
 
 
 def send(to , subject , body):
+
+
+    """
+    SMTP email sender. 
+    Note: Standard SMTP (port 465) is blocked by default on cloud hosts like Railway.
+    Use this for local development or if your deployment environment supports SMTP.
+    message = EmailMessage()
+    message["Subject"] = subject
+    message["From"] = current_app.config["SMTP_USER"]
+    message["To"] = to
+    message.set_content(body)
+    """
 
     resend.api_key = os.getenv("RESEND_API_KEY")
 
