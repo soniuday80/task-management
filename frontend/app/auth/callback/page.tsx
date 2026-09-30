@@ -1,11 +1,12 @@
 // this is where we handle redirect that comes from the auth provider after a successful login
 export const dynamic = 'force-dynamic'; // rendering it live 
 'use client'; // forgot this one too lol
-import { useEffect } from 'react';
+import { useEffect , Suspense } from 'react';
 import { useRouter , useSearchParams } from 'next/navigation';
 import { getUserIdFromToken } from '@/lib/jwt';
 
-export default function AuthCallback() {
+
+function CallbackHandler() {
 
 // we need an acces token to access the backend api, so we will get it from the url query params and store it in local storage
     const router = useRouter();
@@ -24,4 +25,27 @@ export default function AuthCallback() {
             }
         }
     }, [searchParams, router]); // we need to add searchParams and router as dependencies to the useEffect hook, so that it runs again when they change
+
+    
+return (
+        <div className="flex h-screen items-center justify-center">
+            <p>Processing your login...</p>
+        </div>
+    );
+
+}
+
+
+
+
+export default function AuthCallback() {
+    return (
+        <Suspense fallback={
+            <div className="flex h-screen items-center justify-center">
+                <p>Loading authentication...</p>
+            </div>
+        }>
+            <CallbackHandler />
+        </Suspense>
+    );
 }
