@@ -1,7 +1,7 @@
 from flask import redirect
-from oauth import oauth
-from jwt_utils import create_jwt
-from backend.extentions import get_db
+from auth.jwt_utils import create_jwt
+from extentions import get_db
+from auth.oauth import oauth
 
 def register_auth_routes(app):
     @app.route('/auth/google/login')
@@ -29,4 +29,4 @@ def register_auth_routes(app):
 
         user_id = row['id']
         access_token = create_jwt(user_id)
-        return redirect(f"{app.config['FRONTEND_URL']}/auth/callback?token={access_token}")
+        return redirect(f"{app.config['FRONTEND_URL']}/auth/callback?acces_token={access_token}")

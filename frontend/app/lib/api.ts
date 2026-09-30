@@ -1,7 +1,7 @@
-const API = process.env.BACKEND_URI;
+const API = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export async function api(path: string, options: RequestInit = {}) {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('access_token');
   const res = await fetch(`${API}${path}`, {
     ...options,
     headers: {
@@ -12,10 +12,10 @@ export async function api(path: string, options: RequestInit = {}) {
   });
 
   if (res.status === 401) {
-    localStorage.removeItem('token');
+    localStorage.removeItem('access_token');
     localStorage.removeItem('user_id')
     window.location.href = '/';
-    throw new Error('unauthorized');
+   // throw new Error('unauthorized');
   }
 
   return res;

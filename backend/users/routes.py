@@ -1,5 +1,5 @@
 from flask import  jsonify
-from backend.extentions import get_db
+from extentions import get_db
 from auth.jwt_utils import get_current_user_id
 
 def register_user_profile(app):

@@ -16,11 +16,30 @@ export default function Dashboard() {
     loadTasks();
   }, []);
 
-  function loadTasks() {
+ function loadTasks() {
     setLoading(true);
     api('/tasks')
-      .then((res) => res.json())
-      .then(setTasks)
+      .then(async (res) => {
+        if (!res) return; 
+        
+        if (!res.ok) {
+          console.error("Failed to fetch tasks, status:", res.status);
+          return;
+        }
+
+        const data = await res.json();
+        
+        if (Array.isArray(data)) {
+          setTasks(data);
+        } else {
+          console.error("Expected an array, but received:", data);
+          setTasks([]);
+        }
+      })
+      .catch((err) => {
+        console.error("Network or parsing error:", err);
+        setTasks([]);
+      })
       .finally(() => setLoading(false));
   }
 
@@ -56,6 +75,7 @@ export default function Dashboard() {
             <tr className="border-b">
               <th className="py-2">Title</th>
               <th>Status</th>
+              <th>description</th>
               <th>Created by</th>
               <th>Assigned to</th>
               <th></th>
@@ -66,6 +86,7 @@ export default function Dashboard() {
               <tr key={t.id} className="border-b">
                 <td className="py-2">{t.title}</td>
                 <td>{t.status}</td>
+                <td>{t.description}</td>
                 <td>{t.creator_name}</td>
                 <td>{t.assignee_name}</td>
                 <td>

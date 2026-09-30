@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from auth.jwt_utils import get_current_user_id
-from backend.extentions import get_db
+from extentions import get_db
 from emails.email import send_task_created_email, send_task_completed_email
 
 

@@ -1,4 +1,4 @@
-function getUserIdFromToken(token: string): string | null {
+export function getUserIdFromToken(token: string): string | null {
   try { 
     const payload = token.split('.')[1];
     const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');

@@ -11,7 +11,7 @@ def send(to , subject , body):
     message.set_content(body)
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(current_app.config["SMTP_USER"], current_app.config["SMTP_APP_PASSWORD"])
+        server.login(current_app.config["SMTP_USER"], current_app.config["SMTP_PASSWORD"])
         server.send_message(message)
 
 def send_task_created_email(to, task):
@@ -20,4 +20,4 @@ def send_task_created_email(to, task):
 
 def send_task_completed_email(to, task):
     send(to, f"Task completed: {task['title']}",
-          f"Your task \"{task['title']}\" was marked complete.")
+          f"Your assigned task \"{task['title']}\" was marked complete.")
