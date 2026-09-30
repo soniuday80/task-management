@@ -2,7 +2,7 @@
 
 A multi-user task management application with Google OAuth login, task creation and assignment between users, and email notifications on task creation and completion.
 
-**Live URL (frontend):** `https://task-management-noxs.vercel.app/`
+**Live URL:** `https://task-management-noxs.vercel.app/`
 
 ---
 
