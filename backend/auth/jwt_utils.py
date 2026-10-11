@@ -10,14 +10,19 @@ def create_jwt(user_id):
     access_token = jwt.encode(payload, current_app.config['JWT_SECRET'], algorithm='HS256')
     return access_token
 
+
+def jwt_Decode(access_token):
+    try:
+            payload = jwt.decode(access_token, current_app.config['JWT_SECRET'], algorithms=['HS256'])
+            return payload['user_id']
+    except jwt.InvalidTokenError:
+            return None
+
 def get_current_user_id():
     auth_header = request.headers.get('Authorization', '')
     if not auth_header.startswith('Bearer '):
         return None
     access_token = auth_header.split(' ', 1)[1]
-    try:
-        payload = jwt.decode(access_token, current_app.config['JWT_SECRET'], algorithms=['HS256'])
-        return payload['user_id']
-    except jwt.InvalidTokenError:
-        return None
+    user_id = jwt_Decode(access_token)
+    return user_id
    

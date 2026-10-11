@@ -15,3 +15,12 @@ export interface User {
   name: string;
   email: string;
 }
+
+export interface chatMessage {
+  id: string;
+  user_id: string;
+  sender_name: string;
+  message: string;
+  created_at: string;
+
+}
